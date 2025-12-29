@@ -11,6 +11,7 @@
     "target": "ESNext",
     // ink
     "jsx": "react",
-    "lib": ["DOM", "DOM.Iterable", "ES2023"]
+    "lib": ["DOM", "DOM.Iterable", "ES2023"],
+    "rewriteRelativeImportExtensions": true
   }
 }

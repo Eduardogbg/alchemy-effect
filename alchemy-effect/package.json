@@ -114,6 +114,21 @@
       "types": "./lib/cloudflare/durable-object/index.d.ts",
       "bun": "./src/cloudflare/durable-object/index.ts",
       "import": "./lib/cloudflare/durable-object/index.js"
+    },
+    "./cloudflare/secrets-store": {
+      "types": "./lib/cloudflare/secrets-store/index.d.ts",
+      "bun": "./src/cloudflare/secrets-store/index.ts",
+      "import": "./lib/cloudflare/secrets-store/index.js"
+    },
+    "./cloudflare/container": {
+      "types": "./lib/cloudflare/container/index.d.ts",
+      "bun": "./src/cloudflare/container/index.ts",
+      "import": "./lib/cloudflare/container/index.js"
+    },
+    "./test": {
+      "types": "./lib/test.d.ts",
+      "bun": "./src/test.ts",
+      "import": "./lib/test.js"
     }
   },
   "publishConfig": {
