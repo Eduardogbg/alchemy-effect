@@ -80,11 +80,8 @@ export const queueProvider = () =>
       });
 
       const listQueues = Effect.fn(function* () {
-        const queues: Queues.Queue[] = [];
-        for await (const queue of api.queues.list({ account_id: accountId })) {
-          queues.push(queue);
-        }
-        return queues;
+        const response = yield* api.queues.list({ account_id: accountId });
+        return (response.result ?? []) as Queues.Queue[];
       });
 
       const deleteQueue = Effect.fn(function* (queueId: string) {

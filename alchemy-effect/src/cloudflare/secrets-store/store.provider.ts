@@ -80,12 +80,10 @@ export const storeProvider = () =>
       });
 
       const listStores = Effect.fn(function* (name?: string) {
-        const stores: StoreResponseObject[] = [];
-        for await (const store of api.secretsStore.stores.list({
+        const response = yield* api.secretsStore.stores.list({
           account_id: accountId,
-        })) {
-          stores.push(store);
-        }
+        });
+        const stores = (response.result ?? []) as StoreResponseObject[];
         return name ? stores.filter((s) => s.name === name) : stores;
       });
 
@@ -96,13 +94,10 @@ export const storeProvider = () =>
       });
 
       const listSecrets = Effect.fn(function* (storeId: string) {
-        const secrets: SecretsStore.Stores.SecretListResponse[] = [];
-        for await (const secret of api.secretsStore.stores.secrets.list(storeId, {
+        const response = yield* api.secretsStore.stores.secrets.list(storeId, {
           account_id: accountId,
-        })) {
-          secrets.push(secret);
-        }
-        return secrets;
+        });
+        return (response.result ?? []) as SecretsStore.Stores.SecretListResponse[];
       });
 
       const createSecrets = Effect.fn(function* (
@@ -115,7 +110,7 @@ export const storeProvider = () =>
         const body = secretEntries.map(([name, value]) => ({
           name,
           value,
-          scopes: ["workers"] as const,
+          scopes: ["workers"] as string[],
         }));
 
         yield* api.secretsStore.stores.secrets.create(storeId, {

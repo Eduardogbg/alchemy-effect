@@ -6,14 +6,21 @@ export type NamespaceProps = {
   namespaceId?: string;
 };
 
+/**
+ * A Durable Object namespace binding.
+ *
+ * This is a "virtual resource" - it doesn't have API CRUD operations.
+ * The namespace lifecycle is managed via Worker deployment.
+ * The `props` property contains the configuration for binding resolution.
+ */
 export type Namespace<T = unknown> = {
   type: "durable_object_namespace";
   id: string;
-  className: string;
-  scriptName?: string;
-  environment?: string;
-  sqlite?: boolean;
-  namespaceId?: string;
+  /**
+   * The props are exposed for the binding system.
+   * At runtime, `source.props` will contain these values.
+   */
+  props: NamespaceProps;
   __service__: T;
 };
 
@@ -24,11 +31,7 @@ export function Namespace<T = unknown>(
   return {
     type: "durable_object_namespace",
     id,
-    className: props.className,
-    scriptName: props.scriptName,
-    environment: props.environment,
-    sqlite: props.sqlite,
-    namespaceId: props.namespaceId,
+    props,
     __service__: undefined!,
   };
 }

@@ -33,13 +33,22 @@ export type ContainerProps = {
   namespaceId?: string;
 };
 
+/**
+ * A Container namespace binding.
+ *
+ * This is a "virtual resource" - it doesn't have API CRUD operations.
+ * Containers are Durable Object-based compute that run Docker containers.
+ * Container lifecycle is managed via Worker deployment.
+ * The `props` property contains the configuration for binding resolution.
+ */
 export type Container<T = unknown> = {
   type: "container";
   id: string;
-  className: string;
-  scriptName?: string;
-  environment?: string;
-  namespaceId?: string;
+  /**
+   * The props are exposed for the binding system.
+   * At runtime, `source.props` will contain these values.
+   */
+  props: ContainerProps;
   __service__: T;
 };
 
@@ -66,10 +75,7 @@ export function Container<T = unknown>(
   return {
     type: "container",
     id,
-    className: props.className,
-    scriptName: props.scriptName,
-    environment: props.environment,
-    namespaceId: props.namespaceId,
+    props,
     __service__: undefined!,
   };
 }

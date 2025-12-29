@@ -69,7 +69,14 @@ export const databaseProvider = () =>
           .create({
             account_id: accountId,
             name: payload.name,
-            primary_location_hint: payload.primary_location_hint,
+            primary_location_hint: payload.primary_location_hint as
+              | "wnam"
+              | "enam"
+              | "weur"
+              | "eeur"
+              | "apac"
+              | "oc"
+              | undefined,
           })
           .pipe(Effect.map((r) => r as unknown as D1ResponseObject));
 
