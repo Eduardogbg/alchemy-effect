@@ -8,6 +8,7 @@ export * as SecretsStore from "./secrets-store/index.ts";
 export * as Assets from "./worker/assets.fetch.ts";
 export * as Worker from "./worker/index.ts";
 export * from "./account.ts";
+export * from "./api.ts";
 export * from "./live.ts";
 
 import "./config.ts";
